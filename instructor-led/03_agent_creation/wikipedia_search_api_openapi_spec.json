@@ -1,0 +1,128 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "3M-Hackathon-Testing-API",
+        "description": "API for 3M Hackathon testing endpoints, including Wikipedia search.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        { "url": "" }
+    ],
+    "auth": [],
+    "paths": {
+        "/search/wikipedia": {
+            "get": {
+                "tags": [
+                    "Wikipedia"
+                ],
+                "summary": "Search Wikipedia articles",
+                "description": "Search Wikipedia for articles matching the given keywords. Returns a list of article titles and URLs (with a snippet of the article text).",
+                "operationId": "search_wikipedia_articles_search_wikipedia_get",
+                "parameters": [
+                    {
+                        "name": "keywords",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "Keywords to search for in Wikipedia articles.",
+                            "title": "Keywords"
+                        },
+                        "description": "Keywords to search for in Wikipedia articles."
+                    },
+                    {
+                        "name": "max_results",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 20,
+                            "minimum": 1,
+                            "description": "Maximum number of articles to return (1-20).",
+                            "default": 5,
+                            "title": "Max Results"
+                        },
+                        "description": "Maximum number of articles to return (1-20)."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "additionalProperties": true
+                                    },
+                                    "title": "Response Search Wikipedia Articles Search Wikipedia Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            }
+        }
+    }
+}

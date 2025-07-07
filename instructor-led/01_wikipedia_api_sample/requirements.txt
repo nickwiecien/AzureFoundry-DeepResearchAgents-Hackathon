@@ -1,0 +1,10 @@
+# src/api/requirements.txt
+fastapi==0.110.2
+uvicorn[standard]==0.29.0
+python-dotenv==1.0.1
+# Add Azure SDKs and pandas if needed for future endpoints
+azure-search-documents==11.4.0
+openai==1.77.0
+pandas==2.0.2
+wikipedia-api==0.6.0
+requests==2.31.0
